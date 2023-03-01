@@ -42,7 +42,7 @@ public class App
         while (playAgain)
         {
 
-
+            
             int counter = 1;
             secretNumber = random.Next(1, 101);
             int tal = 0;
@@ -129,6 +129,7 @@ public class App
 
             if (svar == "ja")
             {
+                Console.Clear();
                 Console.WriteLine("Gissa talet mellan 1 och 100.");
                 return true;
                 
