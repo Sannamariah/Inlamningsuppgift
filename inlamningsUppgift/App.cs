@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.IO;
+using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class App
 {
@@ -9,9 +16,9 @@ public class App
     public void Run()
     {
 
-        
-        Console.WriteLine("******VÄLKOMMEN!******");
-        
+
+        Console.WriteLine("********VÄLKOMMEN!********");
+
         Play();
         MainMenu();
 
@@ -19,25 +26,20 @@ public class App
 
     }
 
-    // Play = CheckString();  för G vill du spela igen Ja/Nej?
-
-
-
-
-
+    
 
 
 
 
     public void MainMenu()
     {
-        
+
         bool isRunning = true;
 
         while (isRunning)
         {
 
-            
+
             Console.WriteLine("VÄLJ ETT ALTERNATIV");
             Console.WriteLine("");
             Console.WriteLine("1. Spela igen");
@@ -55,11 +57,11 @@ public class App
 
                 case 2:
                     isRunning = false;
-                    Console.WriteLine("Tack för den här gången");
+                    Console.WriteLine("Tack för den här gången!");
                     break;
 
                 case 3:
-                    // show lowscore list
+                    LowScore();
                     break;
 
                 default:
@@ -76,13 +78,29 @@ public class App
         }
     }
 
+
+
+    public void LowScore()
+    {
+        
+
+
+
+      
+
+    }
+
+
     public void Play()
     {
         Console.WriteLine("Gissa talet mellan 1 och 100.");
         var random = new Random();
         int secretNumber = random.Next(1, 101);
         bool play = true;
-        Console.WriteLine(secretNumber);
+        var date = DateTime.Now;
+
+
+
         while (play)
         {
 
@@ -91,11 +109,11 @@ public class App
 
 
 
-
+            
             while (tal != secretNumber)
             {
                 tal = CheckNumber(1, 100);
-                Console.WriteLine($"Runda: {counter}");
+                Console.WriteLine($"Runda: {counter + 1}");
 
 
                 if (tal > secretNumber)
@@ -118,17 +136,28 @@ public class App
             }
             Console.Clear();
             Console.WriteLine("*********************************************************************");
-            Console.WriteLine($"Nummer: {tal}");
             Console.WriteLine($"{secretNumber} är rätt!");
-            Console.WriteLine($"Du gissade rätt på {counter} gånger.");
+            Console.WriteLine($"Rundor körda: {counter}");
+            Console.WriteLine($"Datum: {date.ToLongDateString()}, Tid: {date.ToLongTimeString()} ");
             Console.WriteLine("*********************************************************************");
+            // om man platsar på lowscore listan ska detta visas
+            Console.WriteLine("Skriv ditt namn:");
+            string playerName = Console.ReadLine();
+
+            // Play = CheckString();  för G delen," vill du spela igen Ja/Nej?"
             play = false;
-            
+
 
         }
 
-         
+
     }
+
+ 
+
+
+
+
     public int CheckNumber(int min, int max)
     {
         int tal = 0;
@@ -151,47 +180,54 @@ public class App
             return tal;
         }
     }
+
+
+
+
 }
 
 
-    //public bool CheckString()  för G delen
-    //{
-       
-
-    //    while (true)
-    //    {
-    //        Console.WriteLine($"Vill du spela igen? Ja/Nej");
-    //        string svar = Console.ReadLine().ToLower();
 
 
 
-    //        if (svar == "ja")
-    //        {
-    //            Console.Clear();
-    //            Console.WriteLine("Gissa talet mellan 1 och 100.");
-    //            return true;
-                
-    //        }
-    //        else if(svar == "nej")
-    //        {
-    //            Console.WriteLine("Tack för den här gången!");
-    //            return false;
-    //        }
+//public bool CheckString() kod för G delen Ja/Nej
+//{
 
-    //    }
-    //}
+
+//    while (true)
+//    {
+//        Console.WriteLine($"Vill du spela igen? Ja/Nej");
+//        string svar = Console.ReadLine().ToLower();
 
 
 
+//        if (svar == "ja")
+//        {
+//            Console.Clear();
+//            Console.WriteLine("Gissa talet mellan 1 och 100.");
+//            return true;
+
+//        }
+//        else if(svar == "nej")
+//        {
+//            Console.WriteLine("Tack för den här gången!");
+//            return false;
+//        }
+
+//    }
+//}
 
 
 
 
 
-    
 
 
-   
+
+
+
+
+
 
 
 
