@@ -8,6 +8,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Drawing.Text;
+using Microsoft.IdentityModel.Abstractions;
 
 public class App
 {
@@ -27,9 +29,6 @@ public class App
     }
 
     
-
-
-
 
     public void MainMenu()
     {
@@ -80,15 +79,33 @@ public class App
 
 
 
+
     public void LowScore()
     {
-        
 
+        // jag får den att skriva det senaste resultatet men inte att lagra mer. 
+        // nästa steg är att få den att lagra 5 resultat och skriva ut min Välkommen till lowscorelistan texten
+        StreamReader sr = new StreamReader("file.txt");
+        string data = sr.ReadLine();
+        while (data != null)
+        {
 
+            Console.WriteLine(data);
+            string[] values = data.Split(',');
+            string name = values[0];
+            int count = Int32.Parse(values[1]);
+            data = sr.ReadLine();
+        }
 
-      
+        Console.WriteLine("          VÄLKOMMEN TILL LOWSCORE LISTAN             ");
+        Console.WriteLine("-----------------------------------------------------");
+        Console.WriteLine("      Namn:     |    Tid:     |     Gissningar:      ");
+        Console.WriteLine("-----------------------------------------------------");
+        Console.WriteLine(data);
 
     }
+
+    
 
 
     public void Play()
@@ -98,6 +115,7 @@ public class App
         int secretNumber = random.Next(1, 101);
         bool play = true;
         var date = DateTime.Now;
+        StreamWriter sw = new StreamWriter("file.txt");
 
 
 
@@ -141,8 +159,12 @@ public class App
             Console.WriteLine($"Datum: {date.ToLongDateString()}, Tid: {date.ToLongTimeString()} ");
             Console.WriteLine("*********************************************************************");
             // om man platsar på lowscore listan ska detta visas
-            Console.WriteLine("Skriv ditt namn:");
-            string playerName = Console.ReadLine();
+             Console.Write("Skriv ditt namn:");
+             string playerName = Console.ReadLine();
+            sw.WriteLine($"{playerName}, {date}, {counter}");
+            sw.Close();
+
+
 
             // Play = CheckString();  för G delen," vill du spela igen Ja/Nej?"
             play = false;
@@ -184,8 +206,8 @@ public class App
 
 
 
-}
 
+}
 
 
 
