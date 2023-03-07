@@ -1,46 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.IO;
+//using System.Drawing.Imaging;
 
-namespace inlamningsUppgift
-{
-    //internal class Score
-    //{
+//namespace inlamningsUppgift
+//{
+//    internal class Score
+//    {
+//        public static void Main(string[] args)
+//        { 
+//        string path = "file.txt";
 
-    //    private string PlayerName { get; set; }
-    //    private int Date { get; set; }
-    //    private int Points { get; set; }
+//        ReadFromFile(path);
+
+//        }
+
+//    public static void ReadFromFile(string path)
+//        {
+//            StreamReader sr = new StreamReader("file.txt");
+
+//            int count = 0;
+
+//            while(!sr.EndOfStream) 
+//            {
+//                Console.WriteLine(sr.ReadLine());
+//                count++;
+//            }
+//            Console.WriteLine("LowScore Listan", count);
 
 
-    //    public string Name
-    //    {
-    //        get { return PlayerName; }
-    //        set { Name = value; }
-    //    }
+//            sr.Close();
 
-    //    public string DateTime
-    //    { 
-    //        get { return Date; }
-    //        set { Date = value; }
+
+//        }
+
+//        public static void WriteToFile(string path) 
+//        {
+//            StreamWriter sw = new StreamWriter(path, true);
             
-    //    }
 
-    //    public int Points
-    //    {
-    //        get { return Points; }
-    //        set { Points = value; }
-    //    }
+//            do 
+//            {
+//                Console.WriteLine("Skriv ditt namn:");
+//                string namn = Console.ReadLine();
+//                if (Score < "5")
+//                { 
+//                    WriteToFile(namn, DateTime.Now, App.LowScore(Score));
+//                }
+//            } while (score)
 
-    //    public Player()
-    //    {
-    //        Name = "Name";
-    //        Date = "2023 03 03 13:37";
-    //        Points = 0;
-        
-    //    }
-    //}
-}
+//            sw.Close();
+           
+//        }
+
+
+//    }
+//}
+
+// Jag ger upp med textfil delen men lämnar koden kvar för att kunna gå tillbaka i framtien och se hur långt ifrån jag var från att lösa det. 

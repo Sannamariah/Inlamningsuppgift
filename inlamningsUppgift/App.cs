@@ -1,18 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.IO;
-using System.Text;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Drawing.Text;
-using Microsoft.IdentityModel.Abstractions;
+﻿using System.IO;
 
 public class App
 {
+
+   
+
+
+
 
 
     public void Run()
@@ -78,13 +72,10 @@ public class App
     }
 
 
+ 
 
-
-    public void LowScore()
+    public static void LowScore()
     {
-
-        // jag får den att skriva det senaste resultatet men inte att lagra mer. 
-        // nästa steg är att få den att lagra 5 resultat och skriva ut min Välkommen till lowscorelistan texten
         StreamReader sr = new StreamReader("file.txt");
         string data = sr.ReadLine();
         while (data != null)
@@ -96,16 +87,18 @@ public class App
             int count = Int32.Parse(values[1]);
             data = sr.ReadLine();
         }
+        sr.Close();
 
-        Console.WriteLine("          VÄLKOMMEN TILL LOWSCORE LISTAN             ");
-        Console.WriteLine("-----------------------------------------------------");
-        Console.WriteLine("      Namn:     |    Tid:     |     Gissningar:      ");
-        Console.WriteLine("-----------------------------------------------------");
-        Console.WriteLine(data);
+        // Detta är hur jag hade tänkt att min text fil med lowscore skulle se ut.
+        //Console.WriteLine("          VÄLKOMMEN TILL LOWSCORE LISTAN             ");
+        //Console.WriteLine("-----------------------------------------------------");
+        //Console.WriteLine("      Namn:     |    Tid:     |     Gissningar:      ");
+        //Console.WriteLine("-----------------------------------------------------");
+        //Console.WriteLine(data);
 
     }
 
-    
+
 
 
     public void Play()
@@ -119,10 +112,11 @@ public class App
 
 
 
+
         while (play)
         {
 
-            int counter = 0;
+            int score = 0;
             int tal = 0;
 
 
@@ -131,7 +125,7 @@ public class App
             while (tal != secretNumber)
             {
                 tal = CheckNumber(1, 100);
-                Console.WriteLine($"Runda: {counter + 1}");
+                Console.WriteLine($"Runda: {score + 1}");
 
 
                 if (tal > secretNumber)
@@ -149,20 +143,20 @@ public class App
 
 
                 }
-                counter++;
+                score++;
 
             }
             Console.Clear();
             Console.WriteLine("*********************************************************************");
             Console.WriteLine($"{secretNumber} är rätt!");
-            Console.WriteLine($"Rundor körda: {counter}");
+            Console.WriteLine($"Rundor körda: {score}");
             Console.WriteLine($"Datum: {date.ToLongDateString()}, Tid: {date.ToLongTimeString()} ");
             Console.WriteLine("*********************************************************************");
-            // om man platsar på lowscore listan ska detta visas
-             Console.Write("Skriv ditt namn:");
-             string playerName = Console.ReadLine();
-            sw.WriteLine($"{playerName}, {date}, {counter}");
-            sw.Close();
+            Console.Write("Skriv ditt namn:");
+            string playerName = Console.ReadLine();
+            sw.WriteLine($"{playerName}, {date}, {score}");
+            Console.WriteLine("----------------------------------------------------------------------");
+            
 
 
 
