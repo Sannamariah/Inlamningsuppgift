@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks.Sources;
 
 public class App
 {
@@ -12,7 +14,7 @@ public class App
     public void Run()
     {
 
-
+        
         Console.WriteLine("********VÄLKOMMEN!********");
 
         Play();
@@ -54,7 +56,14 @@ public class App
                     break;
 
                 case 3:
-                    LowScore();
+                    Console.WriteLine("LOWSCORE LISTAN!");
+                    foreach (var x in InitializeFromFile())
+                    {
+                        
+                        Console.WriteLine(x.PlayerName, x.Score, x.Date);
+                        
+                    }
+                    
                     break;
 
                 default:
@@ -71,44 +80,62 @@ public class App
         }
     }
 
+    public class Player
+    { 
+        public string PlayerName { get; set; }
+        public int Score { get; set; }
+        public int Date { get; set; }   
 
- 
-
-    public static void LowScore()
-    {
-        StreamReader sr = new StreamReader("file.txt");
-        string data = sr.ReadLine();
-        while (data != null)
+        public Player(int date)
         {
-
-            Console.WriteLine(data);
-            string[] values = data.Split(',');
-            string name = values[0];
-            int count = Int32.Parse(values[1]);
-            data = sr.ReadLine();
+            this.Date = date;
         }
-        sr.Close();
-
-        // Detta är hur jag hade tänkt att min text fil med lowscore skulle se ut.
-        //Console.WriteLine("          VÄLKOMMEN TILL LOWSCORE LISTAN             ");
-        //Console.WriteLine("-----------------------------------------------------");
-        //Console.WriteLine("      Namn:     |    Tid:     |     Gissningar:      ");
-        //Console.WriteLine("-----------------------------------------------------");
-        //Console.WriteLine(data);
-
     }
 
 
+    private void  SaveToFile(List<Player> list)
+    {
+       var strings = new List<string>();
+        foreach (var player in list) 
+        { 
+            string spelarString = player.PlayerName + "," + player.Score + "," + player.Date;
+            strings.Add(spelarString);
+        }
+
+
+        File.WriteAllLines("score.txt", strings);
+    }
+
+
+    public List<Player> InitializeFromFile()
+    {
+        var listan = new List<Player>();
+        if (!File.Exists("score.txt")) return listan;
+
+        foreach (var line in File.ReadLines("score.txt"))
+        { 
+            var parts = line.Split(',');
+            var player = new Player(0);
+            player.PlayerName = parts[0];
+            player.Score = Convert.ToInt32(parts[1]);
+            player.Date = Convert.ToInt32(parts[2]);
+            listan.Add(player);
+        
+        
+        }
+        return listan;
+    }
 
 
     public void Play()
     {
+        var list = InitializeFromFile();
         Console.WriteLine("Gissa talet mellan 1 och 100.");
         var random = new Random();
         int secretNumber = random.Next(1, 101);
         bool play = true;
         var date = DateTime.Now;
-        StreamWriter sw = new StreamWriter("file.txt");
+       
 
 
 
@@ -154,9 +181,13 @@ public class App
             Console.WriteLine("*********************************************************************");
             Console.Write("Skriv ditt namn:");
             string playerName = Console.ReadLine();
-            sw.WriteLine($"{playerName}, {date}, {score}");
+
+            list.Add(new Player(0) { PlayerName = playerName, Score = score, Date = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd")) });
+            SaveToFile(list);
+            
             Console.WriteLine("----------------------------------------------------------------------");
             
+           
 
 
 
